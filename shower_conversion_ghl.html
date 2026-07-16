@@ -1,0 +1,500 @@
+<script>
+(function(){
+  var el = document.currentScript || document.body;
+  while(el && el !== document.documentElement){
+    el.style.setProperty('max-width','100%','important');
+    el.style.setProperty('width','100%','important');
+    el.style.setProperty('padding-left','0','important');
+    el.style.setProperty('padding-right','0','important');
+    el.style.setProperty('margin-left','0','important');
+    el.style.setProperty('margin-right','0','important');
+    el = el.parentElement;
+  }
+})();
+</script>
+<style>
+/* GHL container reset */
+html, body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+.page-section__inner, .inner-page-section, [class*="section__inner"],
+[class*="column__inner"], [class*="row__inner"] {
+  padding: 0 !important; margin: 0 !important; max-width: 100% !important;
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #091B3F; --navy2: #14305F; --orange: #B68737; --orange2: #9A7230;
+      --light: #F5F6F8; --white: #FFFFFF; --text: #0C1730; --gray: #64748B;
+      --border: #E2E8F0; --green: #16A34A; --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,.10); --shadow-lg: 0 8px 48px rgba(0,0,0,.15);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 80px 0; }
+    .text-center { text-align: center; }
+    .section-label { display: inline-block; background: rgba(182,135,55,.12); color: var(--orange); font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 14px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,2.8rem); font-weight: 800; line-height: 1.15; color: var(--navy); margin-bottom: 16px; }
+    .section-sub { font-size: 1.05rem; color: var(--gray); max-width: 640px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; white-space: nowrap; }
+    .btn-primary:hover { background: var(--orange2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(182,135,55,.4); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--white); font-weight: 700; font-size: .95rem; padding: 14px 28px; border-radius: 8px; border: 2px solid rgba(255,255,255,.6); cursor: pointer; transition: background .2s; white-space: nowrap; }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+    .topbar { background: var(--navy); padding: 8px 0; font-size: .82rem; color: rgba(255,255,255,.8); }
+    .topbar .container { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+    .topbar a { color: rgba(255,255,255,.85); }
+    .topbar a:hover { color: var(--orange); }
+    .topbar-right { display: flex; gap: 20px; align-items: center; }
+    .topbar-badge { background: var(--orange); color: #fff; font-weight: 700; font-size: .72rem; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .nav { position: sticky; top: 0; z-index: 1000; background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .nav .container { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: .9rem; font-weight: 600; color: var(--text); transition: color .15s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-phone { font-weight: 700; font-size: .9rem; color: var(--navy); }
+    .nav-phone:hover { color: var(--orange); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+    .mobile-nav { position: fixed; inset: 0; background: var(--white); z-index: 2000; display: flex; flex-direction: column; padding: 48px 32px 32px; gap: 20px; transform: translateX(100%); transition: transform .3s; }
+    .mobile-nav.open { transform: none; }
+    .mobile-nav a { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .mobile-nav-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--navy); }
+    .page-hero {
+      background: url('https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343fafaedd1c89666b7c.jpg') center/cover no-repeat;
+      padding: 72px 0 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(220,220,220,0.60);
+    }
+    .page-hero .container { position: relative; z-index: 2; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+    .page-hero-label { display: inline-block; background: rgba(182,135,55,.2); color: var(--orange2); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 18px; }
+    .page-hero-sub { font-size: 1.05rem; color: #111827; max-width: 580px; margin: 0 auto 32px; line-height: 1.7; }
+    .page-hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .breadcrumb { background: var(--light); border-bottom: 1px solid var(--border); padding: 12px 0; font-size: .82rem; color: var(--gray); }
+    .breadcrumb .container { display: flex; align-items: center; gap: 8px; }
+    .breadcrumb a { color: var(--gray); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb .sep { color: var(--border); }
+    .breadcrumb .current { color: var(--navy); font-weight: 600; }
+    .project-section { padding: 72px 0; }
+    .project-header { margin-bottom: 36px; }
+    .project-badge { display: inline-block; background: rgba(22,163,74,.1); color: var(--green); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; }
+    .project-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .project-location { font-size: .95rem; color: var(--gray); }
+    .ba-section { margin-bottom: 48px; }
+    .ba-wrap { position: relative; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; user-select: none; border: 1px solid var(--border); }
+    .ba-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .ba-lbl { position: absolute; top: 12px; border-radius: 9999px; background: rgba(0,0,0,.6); color: #fff; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; padding: 5px 10px; pointer-events: none; }
+    .ba-lbl-before { left: 12px; }
+    .ba-lbl-after  { right: 12px; background: var(--orange); color: var(--navy); font-weight: 700; }
+    .ba-before { position: absolute; inset: 0; overflow: hidden; }
+    .ba-before img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .ba-divider { position: absolute; top: 0; bottom: 0; left: 100%; width: 2px; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,.15); pointer-events: none; transform: translateX(-50%); }
+    .ba-handle { position: absolute; top: 50%; left: 100%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: #fff; border-radius: 50%; border: 2px solid var(--navy); display: flex; align-items: center; justify-content: center; pointer-events: none; box-shadow: 0 8px 16px rgba(0,0,0,.15); z-index: 10; }
+    .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; z-index: 20; -webkit-appearance: none; }
+    .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+    .spec-card { background: var(--light); border-radius: var(--radius); padding: 20px; text-align: center; border: 1px solid var(--border); }
+    .spec-value { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .spec-label { font-size: .78rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .project-layout { display: grid; grid-template-columns: 1fr 340px; gap: 48px; margin-bottom: 48px; align-items: start; }
+    .highlights-list { list-style: none; padding: 0; }
+    .highlights-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: .95rem; color: var(--text); }
+    .highlights-list li:last-child { border-bottom: none; }
+    .highlights-list .chk { color: var(--green); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .project-sidebar { background: var(--light); border-radius: 16px; padding: 28px; border: 1px solid var(--border); }
+    .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+    .material-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .material-item:last-child { border-bottom: none; }
+    .material-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--orange); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; flex-shrink: 0; }
+    .material-name { font-weight: 600; font-size: .88rem; color: var(--navy); }
+    .material-desc { font-size: .78rem; color: var(--gray); }
+    .sidebar-cta { margin-top: 24px; }
+    .sidebar-cta a { display: block; text-align: center; }
+    .highlights-heading { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+    .cta-band { background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%); padding: 72px 0; text-align: center; }
+    .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; margin-bottom: 14px; }
+    .cta-band p { color: rgba(255,255,255,.75); font-size: 1.05rem; max-width: 520px; margin: 0 auto 32px; }
+    .cta-band-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 56px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+    .footer-brand-name span { color: var(--orange); }
+    .footer-about { font-size: .88rem; line-height: 1.7; margin-bottom: 16px; }
+    .footer-col-title { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: .88rem; color: rgba(255,255,255,.7); transition: color .15s; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-contact-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: .88rem; }
+    .footer-contact-item .icon { color: var(--orange); flex-shrink: 0; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: .8rem; }
+    @media (max-width: 1024px) {
+      .specs-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-layout { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-phone { display: none; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-right">
+        <span class="topbar-badge">Free Estimates</span>
+        <a href="tel:4699913182">&#128222; (469) 991-3182</a>
+        <a href="mailto:info@newvaluehomeremodeling.com">&#x2709; info@newvaluehomeremodeling.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="/" class="nav-logo" aria-label="New Value Home Remodeling Home" style="display:flex;align-items:center;gap:10px;">
+        <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c30a5659bec99fce5ae18.png" alt="New Value Home Remodeling logo" style="height:52px;width:auto;display:block;" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#process">Our Process</a>
+        <a href="index.html#reviews">Reviews</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="tel:4699913182" class="nav-phone">&#128222; (469) 991-3182</a>
+        <a href="index.html#contact" class="btn-primary">Get Free Estimate</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu" onclick="document.querySelector('.mobile-nav').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" aria-label="Close menu" onclick="document.querySelector('.mobile-nav').classList.remove('open')">&times;</button>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#process">Our Process</a>
+    <a href="index.html#reviews">Reviews</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="tel:4699913182" class="btn-primary" style="text-align:center;justify-content:center;margin-top:32px;">&#128222; (469) 991-3182</a>
+    <a href="index.html#contact" class="btn-primary" style="text-align:center;justify-content:center;margin-top:10px;">Get Free Estimate</a>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-label">Portfolio</div>
+      <h1>Shower Conversions</h1>
+      <p class="page-hero-sub">We remove outdated tubs and build spacious, custom walk-in showers &mdash; tub-to-shower conversions done right across the DFW metroplex.</p>
+      <div class="page-hero-ctas">
+        <a href="index.html#contact" class="btn-primary">Get Free Estimate</a>
+        <a href="tel:4699913182" class="btn-outline">&#128222; (469) 991-3182</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a>
+      <span class="sep">&#8250;</span>
+      <a href="index.html#projects">Projects</a>
+      <span class="sep">&#8250;</span>
+      <span class="current">Shower Conversion</span>
+    </div>
+  </nav>
+
+  <!-- Project Section -->
+  <section class="project-section">
+    <div class="container">
+      <div class="project-header">
+        <div class="project-badge">&#x2713; Completed Project</div>
+        <h2 class="project-title">Walk-In Shower Conversion</h2>
+        <p class="project-location">&#128205; Outdated tub removed, spacious walk-in shower installed. Complete shower conversion in McKinney, TX.</p>
+      </div>
+
+      <!-- Two-column layout: LEFT = slider + 3 cards + checklist | RIGHT = about + materials -->
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;margin-bottom:48px;">
+
+        <!-- LEFT: Slider + 3 cards + checklist -->
+        <div>
+          <div class="ba-wrap" data-ba>
+            <img
+              class="ba-bg-img"
+              src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343d0cd3954cb21cf3ef.jpg"
+              alt="Old bathtub before shower conversion &mdash; McKinney TX"
+              draggable="false"
+            />
+            <div class="ba-lbl ba-lbl-before">Before</div>
+            <div class="ba-before">
+              <div class="ba-lbl ba-lbl-after">After</div>
+              <img
+                src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343dafaedd1c89666b60.jpg"
+                alt="Walk-in shower after conversion &mdash; McKinney TX &mdash; New Value Home Remodeling"
+                draggable="false"
+              />
+            </div>
+            <div class="ba-divider"></div>
+            <div class="ba-handle"><span style="color:var(--navy);font-size:1.1rem;font-weight:700;line-height:1;">&#8249;&#8250;</span></div>
+            <input type="range" class="ba-range" min="0" max="100" value="100" aria-label="Drag to compare before and after" />
+          </div>
+          <!-- 3 cards &mdash; same width as slider -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;">
+            <div class="spec-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 10px;">
+              <div class="spec-value" style="font-size:1.15rem;">Tub Removed</div>
+              <div class="spec-label">Project Scope</div>
+            </div>
+            <div class="spec-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 10px;">
+              <div class="spec-value" style="font-size:1.15rem;">1 Week</div>
+              <div class="spec-label">Completion Time</div>
+            </div>
+            <div class="spec-card" style="background:var(--orange);border-color:var(--orange);display:flex;align-items:center;justify-content:center;padding:16px 10px;">
+              <a href="index.html#contact" style="color:#fff;font-family:'Playfair Display',serif;font-size:.9rem;font-weight:800;text-align:center;line-height:1.4;display:block;">Get a Free<br>Estimate<br>Like This &rarr;</a>
+            </div>
+          </div>
+          <!-- Checklist -->
+          <ul style="list-style:none;padding:0;margin-top:18px;">
+            <li style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--text);line-height:1.5;"><span style="color:var(--green);flex-shrink:0;margin-top:1px;">&#x2713;</span><span>Old tub &amp; tile surround removed</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--text);line-height:1.5;"><span style="color:var(--green);flex-shrink:0;margin-top:1px;">&#x2713;</span><span>Custom walk-in shower built</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--text);line-height:1.5;"><span style="color:var(--green);flex-shrink:0;margin-top:1px;">&#x2713;</span><span>Large-format gray tile, walls &amp; floor</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--text);line-height:1.5;"><span style="color:var(--green);flex-shrink:0;margin-top:1px;">&#x2713;</span><span>Built-in tile niche</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:.82rem;color:var(--text);line-height:1.5;"><span style="color:var(--green);flex-shrink:0;margin-top:1px;">&#x2713;</span><span>Square rain head, matte black fixtures</span></li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: About This Project + Materials & Finishes -->
+        <div>
+          <h3 class="highlights-heading">About This Project</h3>
+          <p style="font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:16px;">This McKinney homeowner had a standard tub/shower combo that hadn't been used in years. They wanted something they'd actually look forward to every morning &mdash; a clean, open walk-in shower in the same footprint.</p>
+          <p style="font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:16px;">We removed the old tub and dated beige tile surround, waterproofed the alcove, and built a custom walk-in shower in its place. The new shower is tiled floor-to-ceiling in large-format gray stone-look porcelain, with a built-in tile niche for storage and a glass shower door that opens the space right up.</p>
+          <p style="font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:24px;">A square rain shower head with matte black controls ties the whole look together. Completed in one week &mdash; same footprint, completely transformed bathroom.</p>
+          <!-- Materials & Finishes flows directly below -->
+          <div class="project-sidebar">
+            <div class="sidebar-title">Materials &amp; Finishes</div>
+            <div class="material-item">
+              <div class="material-icon">&#129704;</div>
+              <div>
+                <div class="material-name">Large-Format Porcelain Tile</div>
+                <div class="material-desc">Floor-to-ceiling tile &mdash; walls &amp; shower floor</div>
+              </div>
+            </div>
+            <div class="material-item">
+              <div class="material-icon">&#128682;</div>
+              <div>
+                <div class="material-name">Glass Shower Door</div>
+                <div class="material-desc">Clear tempered glass panel</div>
+              </div>
+            </div>
+            <div class="material-item">
+              <div class="material-icon">&#128703;</div>
+              <div>
+                <div class="material-name">Square Rain Shower Head</div>
+                <div class="material-desc">Matte black fixtures &amp; valve controls</div>
+              </div>
+            </div>
+            <div class="material-item">
+              <div class="material-icon">&#9723;</div>
+              <div>
+                <div class="material-name">Built-In Tile Niche</div>
+                <div class="material-desc">Recessed shelf tiled to match shower walls</div>
+              </div>
+            </div>
+            <div class="sidebar-cta">
+              <a href="index.html#contact" class="btn-primary">Get a Quote Like This</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Photo Carousel &mdash; horizontal scroll -->
+      <div style="margin-top:40px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:6px;">Project Photos</h3>
+        <p style="font-size:.82rem;color:var(--gray);margin-bottom:16px;">Before &amp; after &mdash; scroll to see all &rarr;</p>
+        <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--orange) var(--border);">
+
+          <!-- Before 1 -->
+          <div style="flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light);position:relative;">
+            <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343eae7d4768394b9721.jpg" alt="Tub/shower combo before conversion &mdash; McKinney TX" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <span style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">Before</span>
+          </div>
+
+          <!-- After 1 -->
+          <div style="flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light);position:relative;">
+            <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343d817563b473dd37fe.jpg" alt="Rain shower head and tile niche after conversion &mdash; McKinney TX" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <span style="position:absolute;bottom:12px;left:12px;background:var(--orange);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">After</span>
+          </div>
+
+          <!-- After 2 -->
+          <div style="flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light);position:relative;">
+            <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343d6a4144419073b020.jpg" alt="Glass shower door and tile work after conversion &mdash; McKinney TX" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <span style="position:absolute;bottom:12px;left:12px;background:var(--orange);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">After</span>
+          </div>
+
+          <!-- Before 2 -->
+          <div style="flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light);position:relative;">
+            <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343fafaedd1c89666b72.jpg" alt="Full bathroom view before shower conversion &mdash; McKinney TX" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <span style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">Before</span>
+          </div>
+
+          <!-- After 3 -->
+          <div style="flex:0 0 300px;scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light);position:relative;">
+            <img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a3c343d6a4144419073b03e.jpg" alt="Completed walk-in shower full view &mdash; McKinney TX" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <span style="position:absolute;bottom:12px;left:12px;background:var(--orange);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;">After</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More Projects Placeholder -->
+  <section class="section-pad" style="background:var(--light);">
+    <div class="container">
+      <div style="margin-bottom:36px;">
+        <div class="section-label">More Work</div>
+        <h2 class="section-title" style="margin-bottom:8px;">More of Our Work</h2>
+        <p class="section-sub">Real before &amp; after transformations from homes across the DFW metroplex.</p>
+      </div>
+      <style>
+        .gal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+        .gal-item{border-radius:12px;overflow:hidden;position:relative;background:var(--border);}
+        .gal-item img{width:100%;display:block;transition:transform .3s;}
+        .gal-item:hover img{transform:scale(1.02);}
+        @media(max-width:768px){.gal-grid{grid-template-columns:repeat(2,1fr);}}
+        @media(max-width:480px){.gal-grid{grid-template-columns:1fr;}}
+      </style>
+      <div class="gal-grid">
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eac7f3b0b0034912430.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eac7f3b0b0034912435.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eac6f5641e105e7d413.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eac6fe10df00f51286e.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eac2e727c5f35f105c2.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead62d435fa95405866.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eadd0f4875396607745.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead62d435fa95405872.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eadeb5101f8dcac8b08.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead20f1c14ba96dee4a.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead6fe10df00f512886.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead7f3b0b0034912474.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead6fe10df00f512896.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469ead2e727c5f35f105dc.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eade098dfac37c058b2.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eadd0f4875396607763.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eae6fe10df00f5128a6.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eae6f5641e105e7d467.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eae20f1c14ba96dee75.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eae20f1c14ba96dee8a.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaed0f487539660778b.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eae6fe10df00f5128c8.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaeeb5101f8dcac8b45.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaf20f1c14ba96dee9c.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaf20f1c14ba96deea2.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaf6fe10df00f5128e6.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eafac41ea59b0f17742.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eafeb5101f8dcac8b7f.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaf7f3b0b0034912498.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eaf7f3b0b00349124aa.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eafeb5101f8dcac8b8d.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eb06fe10df00f51290e.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eb02e727c5f35f1061e.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eb0e098dfac37c05922.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+        <div class="gal-item"><img src="https://assets.cdn.filesafe.space/eE8bYjkb66gyxPBEKgfz/media/6a469eb06f5641e105e7d48d.jpg" alt="Before and after remodel &mdash; New Value Home Remodeling" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to Ditch the Tub?</h2>
+      <p>Our DFW team will remove your old tub and build a custom walk-in shower you'll love &mdash; on time, on budget, and built to last. Get your free estimate today.</p>
+      <div class="cta-band-btns">
+        <a href="index.html#contact" class="btn-primary">Get Free Estimate</a>
+        <a href="tel:4699913182" class="btn-outline">&#128222; (469) 991-3182</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">New Value<br><span>Home Remodeling</span></div>
+          <p class="footer-about">DFW's most trusted family-owned remodeling company. Expert kitchen, bathroom, flooring &amp; interior remodeling across the Dallas&ndash;Fort Worth metroplex.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Services</div>
+          <nav class="footer-links">
+            <a href="index.html#services">Kitchen Remodeling</a>
+            <a href="index.html#services">Bathroom Remodeling</a>
+            <a href="index.html#services">Interior Remodeling</a>
+            <a href="index.html#services">Flooring Installation</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer-col-title">Projects</div>
+          <nav class="footer-links">
+            <a href="/master-bathroom">Master Bathroom</a>
+            <a href="/guest-bathroom">Guest Bathroom</a>
+            <a href="/shower-conversion">Shower Conversion</a>
+            <a href="index.html#contact">Free Estimate</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact Us</div>
+          <div class="footer-contact-item"><span class="icon">&#128222;</span><a href="tel:4699913182" style="color:rgba(255,255,255,.7);">(469) 991-3182</a></div>
+          <div class="footer-contact-item"><span class="icon">&#x2709;</span><a href="mailto:info@newvaluehomeremodeling.com" style="color:rgba(255,255,255,.7);">info@newvaluehomeremodeling.com</a></div>
+          <div class="footer-contact-item"><span class="icon">&#128205;</span><span>8720 Silverado Trail Suite 3B<br>McKinney, TX 75070</span></div>
+          <div class="footer-contact-item"><span class="icon">&#128336;</span><span>Mon&ndash;Sat: 8:00 AM &ndash; 6:00 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 New Value Home Remodeling. All rights reserved.</span>
+        <span>McKinney, TX &middot; Licensed &amp; Insured &middot; Serving DFW</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('[data-ba]').forEach(wrap => {
+      const before = wrap.querySelector('.ba-before');
+      const divider = wrap.querySelector('.ba-divider');
+      const handle = wrap.querySelector('.ba-handle');
+      const range = wrap.querySelector('.ba-range');
+      function update(v) {
+        before.style.clipPath = `inset(0 0 0 ${v}%)`;
+        divider.style.left = v + '%';
+        handle.style.left = v + '%';
+      }
+      range.addEventListener('input', e => update(e.target.value));
+      update(50);
+    });
+  </script>
+</body>
